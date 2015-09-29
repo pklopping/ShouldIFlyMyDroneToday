@@ -4,7 +4,7 @@
 		%title SIFMDT
 		%link{rel: "stylesheet", href: "./css/main.css"}
 		%script{type: "text/javascript", src: "./includes/jquery-1.11.3.min.js" }
-		/ %script{type: "text/javascript", src: "./js/analysis.js" }
+		%script{type: "text/javascript", src: "./js/ForecastIOInterface.js" }
 		%script{type: "text/javascript", src: "./js/main.js" }
 	%body
 		.top
@@ -14,8 +14,11 @@
 			%form
 				%fieldset
 					%legend Tell me a little about you
-					%label{for: "zip"} Which zip code do you want to fly in?
-					%input#zip{type: "number", name: "zip"}
+					%label{for: "lat"} Latitude
+					%input#lat{type: "number", name: "lat", placeholder: "Latitude", value: "40.8152996"}
+					%br
+					%label{for: "lng"} Longitude
+					%input#lng{type: "number", name: "lng", placeholder: "Longitude", value: "-96.7010288"}
 					%br
 					%label{for: "waterproof"} Is your aircraft waterproof?
 					%input#waterproof{name: "waterproof", type: "checkbox"}
@@ -30,7 +33,7 @@
 					%input#multi_rotor_aircraft_type{type: "radio", name: "aircraft_type", value: "multi", checked: "true"}
 					%br
 
-					%button#multi_rotor_aircraft_type{type: "submit", value: "Submit"} Submit
+					%button#submit{type: "submit", value: "Submit"} Submit
 
 
 		.right
