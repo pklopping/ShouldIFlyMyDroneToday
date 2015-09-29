@@ -8,6 +8,38 @@
     <script src='./js/main.js' type='text/javascript'></script>
   </head>
   <body>
-    <h1>Coming Soon!</h1>
+    <div class='top'>
+      <h1>Should I fly my drone today?</h1>
+      <p>A weather-checking app</p>
+    </div>
+    <div class='left'>
+      <form>
+        <fieldset>
+          <legend>Tell me a little about you</legend>
+          <label for='zip'>Which zip code do you want to fly in?</label>
+          <input id='zip' name='zip' type='number'>
+          <br>
+          <label for='waterproof'>Is your aircraft waterproof?</label>
+          <input id='waterproof' name='waterproof' type='checkbox'>
+          <br>
+          Is your aircraft
+          <span class='fancy_label'>
+            <label for='fixed_wing_aircraft_type'>fixed wing</label>
+          </span>
+          <input id='fixed_wing_aircraft_type' name='aircraft_type' type='radio' value='fixed'>
+          or
+          <span class='fancy_label'>
+            <label for='multi_rotor_aircraft_type'>multi-rotor?</label>
+          </span>
+          <input checked='true' id='multi_rotor_aircraft_type' name='aircraft_type' type='radio' value='multi'>
+          <br>
+          <button id='multi_rotor_aircraft_type' type='submit' value='Submit'>Submit</button>
+        </fieldset>
+      </form>
+    </div>
+    <div class='right'></div>
+    <div class='bottom'>
+      Notes and things
+    </div>
   </body>
 </html>

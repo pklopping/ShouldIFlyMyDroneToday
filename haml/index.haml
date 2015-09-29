@@ -7,5 +7,32 @@
 		/ %script{type: "text/javascript", src: "./js/analysis.js" }
 		%script{type: "text/javascript", src: "./js/main.js" }
 	%body
-		%h1 Coming Soon!
+		.top
+			%h1 Should I fly my drone today?
+			%p A weather-checking app
+		.left
+			%form
+				%fieldset
+					%legend Tell me a little about you
+					%label{for: "zip"} Which zip code do you want to fly in?
+					%input#zip{type: "number", name: "zip"}
+					%br
+					%label{for: "waterproof"} Is your aircraft waterproof?
+					%input#waterproof{name: "waterproof", type: "checkbox"}
+					%br
+					Is your aircraft 
+					%span.fancy_label
+						%label{for: "fixed_wing_aircraft_type"}fixed wing
+					%input#fixed_wing_aircraft_type{type: "radio", name: "aircraft_type", value: "fixed"}
+					or
+					%span.fancy_label
+						%label{for: "multi_rotor_aircraft_type"}multi-rotor?
+					%input#multi_rotor_aircraft_type{type: "radio", name: "aircraft_type", value: "multi", checked: "true"}
+					%br
 
+					%button#multi_rotor_aircraft_type{type: "submit", value: "Submit"} Submit
+
+
+		.right
+		.bottom 
+			Notes and things
