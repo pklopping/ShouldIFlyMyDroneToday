@@ -45,8 +45,7 @@
       $(this.short_answer_selector).html(wordy_response);
       $current_weather = $(this.current_weather_selector);
       $current_weather.children().not('legend').remove();
-      $current_weather.append('<p>Summary: ' + data.summary + '</p>').append('<p>Temperature: ' + Math.round(data.temperature) + 'F</p>').append('<p>Precipitation: %' + (data.precipProbability * 100) + '</p>').append('<p>Wind Speed: ' + Math.round(data.windSpeed) + 'mph</p>');
-      debugger;
+      return $current_weather.append('<p>Summary: ' + data.summary + '</p>').append('<p>Temperature: ' + Math.round(data.temperature) + 'F</p>').append('<p>Precipitation: %' + (data.precipProbability * 100) + '</p>').append('<p>Wind Speed: ' + Math.round(data.windSpeed) + 'mph</p>');
     };
 
     return ForecastAnalysis;

@@ -47,4 +47,3 @@ window.ForecastAnalysis = class ForecastAnalysis
 			.append('<p>Precipitation: %'+(data.precipProbability*100)+'</p>')
 			.append('<p>Wind Speed: '+Math.round(data.windSpeed)+'mph</p>')
 			# .append('<p>Summary: '+data.+'</p>')
-		debugger

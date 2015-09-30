@@ -26,20 +26,17 @@
             <label for='lng'>Longitude</label>
             <input id='lng' name='lng' placeholder='Longitude' type='number' value='-96.7010288'>
             <br>
-            <label for='waterproof'>Is your aircraft waterproof?</label>
-            <input id='waterproof' name='waterproof' type='checkbox'>
+            Is your aircraft:
             <br>
-            Is your aircraft
-            <span class='fancy_label'>
+            <div class='indent'>
+              <label for='waterproof'>waterproof?</label>
+              <input id='waterproof' name='waterproof' type='checkbox'>
+              <br>
               <label for='fixed_wing_aircraft_type'>fixed wing</label>
-            </span>
-            <input id='fixed_wing_aircraft_type' name='aircraft_type' type='radio' value='fixed'>
-            or
-            <span class='fancy_label'>
-              <label for='multi_rotor_aircraft_type'>multi-rotor?</label>
-            </span>
-            <input checked='true' id='multi_rotor_aircraft_type' name='aircraft_type' type='radio' value='multi'>
-            <br>
+              <input id='fixed_wing_aircraft_type' name='aircraft_type' type='radio' value='fixed'>
+              <label for='multi_rotor_aircraft_type'>multi-rotor/heli</label>
+              <input checked='true' id='multi_rotor_aircraft_type' name='aircraft_type' type='radio' value='multi'>
+            </div>
             <button id='submit' type='submit' value='Submit'>Submit</button>
           </fieldset>
         </form>

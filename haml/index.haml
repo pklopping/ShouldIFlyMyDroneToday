@@ -24,18 +24,16 @@
 						%label{for: "lng"} Longitude
 						%input#lng{type: "number", name: "lng", placeholder: "Longitude", value: "-96.7010288"}
 						%br
-						%label{for: "waterproof"} Is your aircraft waterproof?
-						%input#waterproof{name: "waterproof", type: "checkbox"}
+						Is your aircraft:
 						%br
-						Is your aircraft 
-						%span.fancy_label
+						.indent
+							%label{for: "waterproof"} waterproof?
+							%input#waterproof{name: "waterproof", type: "checkbox"}
+							%br
 							%label{for: "fixed_wing_aircraft_type"}fixed wing
-						%input#fixed_wing_aircraft_type{type: "radio", name: "aircraft_type", value: "fixed"}
-						or
-						%span.fancy_label
-							%label{for: "multi_rotor_aircraft_type"}multi-rotor?
-						%input#multi_rotor_aircraft_type{type: "radio", name: "aircraft_type", value: "multi", checked: "true"}
-						%br
+							%input#fixed_wing_aircraft_type{type: "radio", name: "aircraft_type", value: "fixed"}
+							%label{for: "multi_rotor_aircraft_type"}multi-rotor/heli
+							%input#multi_rotor_aircraft_type{type: "radio", name: "aircraft_type", value: "multi", checked: "true"}
 
 						%button#submit{type: "submit", value: "Submit"} Submit
 
