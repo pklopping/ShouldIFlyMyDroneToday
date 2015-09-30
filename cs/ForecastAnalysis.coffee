@@ -39,6 +39,12 @@ window.ForecastAnalysis = class ForecastAnalysis
 
 		#clear existing things
 		$current_weather.children().not('legend').remove()
-		# Cloud Cover
 
+		# Salient flying details
+		$current_weather
+			.append('<p>Summary: '+data.summary+'</p>')
+			.append('<p>Temperature: '+Math.round(data.temperature)+'F</p>')
+			.append('<p>Precipitation: %'+(data.precipProbability*100)+'</p>')
+			.append('<p>Wind Speed: '+Math.round(data.windSpeed)+'mph</p>')
+			# .append('<p>Summary: '+data.+'</p>')
 		debugger

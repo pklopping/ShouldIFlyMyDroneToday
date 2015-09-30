@@ -24,6 +24,7 @@ Should I pursue this app I might have it incorporate the following features in t
 * Have the app propose the best time of day to fly
 * For waterproof aircraft, factor in precipitation intensity 
 * Return a probabilistic answers like: "Get out there!", "Probably", "Maybe", "Probably Not", "Only if you want to destroy your aircraft"
+* Add in a feature to warn the user if they're near an airports no-fly zone
 
 ### Authors Notes
 
