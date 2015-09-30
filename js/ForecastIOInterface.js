@@ -3,7 +3,7 @@
   var ForecastIOInterface;
 
   window.ForecastIOInterface = ForecastIOInterface = (function() {
-    ForecastIOInterface.prototype.api_key = "";
+    ForecastIOInterface.prototype.api_key = "3587b2d6d9318e9df488d17a2f41c088";
 
     ForecastIOInterface.prototype.api_url = "https://api.forecast.io/forecast/";
 
@@ -12,16 +12,29 @@
     }
 
     ForecastIOInterface.prototype.query = function(lat, lng, cbfn) {
-      var data, latitude, longitude, url;
+      var latitude, longitude, url;
       latitude = String(lat);
       longitude = String(lng);
-      debugger;
       url = this.api_url + this.api_key + "/" + latitude + "," + longitude;
-      console.log("Hitting up: ", url);
-      data = void 0;
-      if (typeof cbfn === "function") {
-        return cbfn(data);
-      }
+      return $.ajax({
+        type: "GET",
+        url: url,
+        dataType: "jsonp",
+        success: (function(_this) {
+          return function(data) {
+            if (typeof cbfn === "function") {
+              return cbfn(data);
+            }
+          };
+        })(this),
+        error: (function(_this) {
+          return function(uhh) {
+            if (typeof cbfn === "function") {
+              return cbfn(void 0);
+            }
+          };
+        })(this)
+      });
     };
 
     return ForecastIOInterface;

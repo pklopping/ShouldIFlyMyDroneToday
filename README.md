@@ -15,4 +15,16 @@ To modify this app, you'll need to know SASS, Coffeescript, and HAML, and you'll
 
 ##Disclaimer
 
-The author of this software does not condone the illegal operation of any recreational aircraft. It is the operators responsibility to know and abide by all local, state, and national laws. 
+The author of this software does not condone the illegal operation of any recreational aircraft. It is the operators responsibility to know and abide by all local, state, and federal laws. 
+
+##Next Version Features
+Should I pursue this app I might have it incorporate the following features in the next version(s)
+
+* Have the app take daylight into account
+* Have the app propose the best time in the day to fly
+
+### Authors Notes
+
+* In the interest of saving time, I decided to do without detailed error reporting. I did make some attempts to error-proof the interface, but it's not impossible to break. 
+* Yes, I like fieldsets. Deal with it.
+* 

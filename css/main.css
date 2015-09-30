@@ -2,4 +2,13 @@
   background-color: black;
   color: white; }
 
+.left-container, .right-container {
+  width: 50%;
+  float: left; }
+  .left-container .left, .left-container .right, .right-container .left, .right-container .right {
+    padding: 10px; }
+
+.bottom {
+  clear: both; }
+
 /*# sourceMappingURL=main.css.map */

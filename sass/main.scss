@@ -2,3 +2,19 @@
 	background-color: black;
 	color: white;
 }
+.left-container, .right-container {
+	width: 50%;
+	float: left;
+	.left, .right {
+		padding: 10px;
+	}
+	.left {
+
+	}
+	.right {
+
+	}
+}
+.bottom {
+	clear: both;
+}
