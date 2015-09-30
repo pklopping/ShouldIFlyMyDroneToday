@@ -35,5 +35,7 @@ fieldset {
 
 .actual_bottom {
   margin-top: 10px; }
+  .actual_bottom .shoutout {
+    float: right; }
 
 /*# sourceMappingURL=main.css.map */
