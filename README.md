@@ -32,4 +32,3 @@ Should I pursue this app I might have it incorporate the following features in t
 * I could have used a javascript library from Forecast.io, but I figured that might be _too_ easy
 * Yes, I know I committed my API key into the repository. It's easy enough to change, and I'm not risking anything in this case.
 * Yes, I like fieldsets. Deal with it.
-* 
