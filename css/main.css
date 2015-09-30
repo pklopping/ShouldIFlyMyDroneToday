@@ -1,6 +1,25 @@
 * {
   background-color: black;
-  color: white; }
+  color: white;
+  font-family: sans-serif; }
+
+.top h1, .top h2, .top h3, .top h4 {
+  margin: 5px 0; }
+.top h2 {
+  opacity: 0.9;
+  margin: 4px 0; }
+.top h3 {
+  opacity: 0.8;
+  margin: 3px 0; }
+.top h4 {
+  opacity: 0.7;
+  margin: 2px 0; }
+
+fieldset {
+  border-radius: 5px; }
+  fieldset legend {
+    position: relative;
+    top: -5px; }
 
 .left-container, .right-container {
   width: 50%;

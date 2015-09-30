@@ -20,6 +20,7 @@ The author of this software does not condone the illegal operation of any recrea
 ##Next Version Features
 Should I pursue this app I might have it incorporate the following features in the next version(s)
 
+* Add geolocation so that users can look up the weather by address
 * Have the app take daylight into account
 * Have the app propose the best time of day to fly
 * For waterproof aircraft, factor in precipitation intensity 
