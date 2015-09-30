@@ -1,3 +1,10 @@
+// Mixins
+@mixin better_border() {
+	border-radius: 5px;
+	border: 2px solid #ddd;
+}
+
+// Main styles
 * {
 	background-color: black;
 	color: white;
@@ -24,10 +31,15 @@
 	}
 }
 fieldset {
-	border-radius: 5px;
+	@include better_border();
 	legend {
 		position: relative;
 		top: -5px;
+	}
+}
+form {
+	#submit {
+		@include better_border();
 	}
 }
 .indent {

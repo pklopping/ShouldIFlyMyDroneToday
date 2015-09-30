@@ -16,10 +16,15 @@
   margin: 2px 0; }
 
 fieldset {
-  border-radius: 5px; }
+  border-radius: 5px;
+  border: 2px solid #ddd; }
   fieldset legend {
     position: relative;
     top: -5px; }
+
+form #submit {
+  border-radius: 5px;
+  border: 2px solid #ddd; }
 
 .indent {
   margin-left: 10px; }
