@@ -7,10 +7,46 @@
 
     ForecastAnalysis.prototype.acceptable_multi_rotor_windspeed = 10;
 
+    ForecastAnalysis.prototype.acceptable_precipitation_probability = 0.05;
+
+    ForecastAnalysis.prototype.short_answer_selector = 'p.short_answer';
+
+    ForecastAnalysis.prototype.current_weather_selector = 'fieldset.current_weather';
+
     function ForecastAnalysis(raw_data, waterproof, fixed_wing) {
-      debugger;
+      var currently, overall_answer;
       console.log("ForecastAnalysis constructed");
+      overall_answer = true;
+      currently = raw_data.currently;
+      overall_answer = this.check_precipitation(currently, waterproof) ? overall_answer : false;
+      overall_answer = this.check_windspeed(currently, fixed_wing) ? overall_answer : false;
+      this.update_interface(currently, overall_answer);
     }
+
+    ForecastAnalysis.prototype.check_windspeed = function(data, fixed_wing) {
+      if (fixed_wing) {
+        return data.windSpeed < this.acceptable_fixed_wing_windspeed;
+      } else {
+        return data.windSpeed < this.acceptable_multi_rotor_windspeed;
+      }
+    };
+
+    ForecastAnalysis.prototype.check_precipitation = function(data, waterproof) {
+      if (waterproof) {
+        return true;
+      } else {
+        return data.precipProbability < this.acceptable_precipitation_probability;
+      }
+    };
+
+    ForecastAnalysis.prototype.update_interface = function(data, fly_or_no) {
+      var $current_weather, wordy_response;
+      wordy_response = fly_or_no ? "Yes you should! Get out there!" : "No, the weather isn't acting in your favor";
+      $(this.short_answer_selector).html(wordy_response);
+      $current_weather = $(this.current_weather_selector);
+      $current_weather.children().not('legend').remove();
+      debugger;
+    };
 
     return ForecastAnalysis;
 

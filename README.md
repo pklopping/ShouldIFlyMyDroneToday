@@ -21,10 +21,13 @@ The author of this software does not condone the illegal operation of any recrea
 Should I pursue this app I might have it incorporate the following features in the next version(s)
 
 * Have the app take daylight into account
-* Have the app propose the best time in the day to fly
+* Have the app propose the best time of day to fly
+* For waterproof aircraft, factor in precipitation intensity 
+* Return a probabilistic answers like: "Get out there!", "Probably", "Maybe", "Probably Not", "Only if you want to destroy your aircraft"
 
 ### Authors Notes
 
 * In the interest of saving time, I decided to do without detailed error reporting. I did make some attempts to error-proof the interface, but it's not impossible to break. 
+* I could have used a javascript library from Forecast.io, but I figured that might be _too_ easy
 * Yes, I like fieldsets. Deal with it.
 * 
