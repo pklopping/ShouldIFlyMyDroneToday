@@ -13,12 +13,13 @@
       lng = $('#lng').val();
       return fioi.query(lat, lng, (function(_this) {
         return function(data) {
-          var fixed_wing, waterproof;
+          var fixed_wing, illuminated, waterproof;
           $(_this).attr('disabled', false);
           if (data) {
             waterproof = $('#waterproof').is(':checked');
             fixed_wing = $('input[name="aircraft_type"]:checked').val() === "fixed" ? true : false;
-            return window.analysis = new ForecastAnalysis(data, waterproof, fixed_wing);
+            illuminated = $('#illuminated').is(':checked');
+            return window.analysis = new ForecastAnalysis(data, waterproof, fixed_wing, illuminated);
           } else {
             return alert("You broke it. Why did you do that? Stop it.");
           }

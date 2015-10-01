@@ -13,15 +13,25 @@
 
     ForecastAnalysis.prototype.current_weather_selector = 'fieldset.current_weather';
 
-    function ForecastAnalysis(raw_data, waterproof, fixed_wing) {
-      var currently, overall_answer;
+    function ForecastAnalysis(raw_data, waterproof, fixed_wing, illuminated) {
+      var currently, overall_answer, today;
       console.log("ForecastAnalysis constructed");
       overall_answer = true;
       currently = raw_data.currently;
+      today = raw_data.daily.data[0];
       overall_answer = this.check_precipitation(currently, waterproof) ? overall_answer : false;
       overall_answer = this.check_windspeed(currently, fixed_wing) ? overall_answer : false;
-      this.update_interface(currently, overall_answer);
+      overall_answer = this.check_daylight(today, illuminated) ? overall_answer : false;
+      this.update_interface(raw_data, overall_answer);
     }
+
+    ForecastAnalysis.prototype.check_daylight = function(today, illuminated) {
+      if (illuminated) {
+        return true;
+      } else {
+        return today.sunriseTime < Date.now() && Date.now() < today.sunsetTime;
+      }
+    };
 
     ForecastAnalysis.prototype.check_windspeed = function(data, fixed_wing) {
       if (fixed_wing) {
@@ -39,13 +49,15 @@
       }
     };
 
-    ForecastAnalysis.prototype.update_interface = function(data, fly_or_no) {
-      var $current_weather, wordy_response;
+    ForecastAnalysis.prototype.update_interface = function(raw_data, fly_or_no) {
+      var $current_weather, currently, today, wordy_response;
       wordy_response = fly_or_no ? "Yes you should! Get out there!" : "No, the weather isn't acting in your favor";
       $(this.short_answer_selector).html(wordy_response);
       $current_weather = $(this.current_weather_selector);
       $current_weather.children().not('legend').remove();
-      return $current_weather.append('<p>Summary: ' + data.summary + '</p>').append('<p>Temperature: ' + Math.round(data.temperature) + 'F</p>').append('<p>Precipitation: %' + (data.precipProbability * 100) + '</p>').append('<p>Wind Speed: ' + Math.round(data.windSpeed) + 'mph</p>');
+      currently = raw_data.currently;
+      today = raw_data.daily.data[0];
+      return $current_weather.append('<p>Summary: ' + currently.summary + '</p>').append('<p>Temperature: ' + Math.round(currently.temperature) + 'F</p>').append('<p>Precipitation: %' + (currently.precipProbability * 100) + '</p>').append('<p>Wind Speed: ' + Math.round(currently.windSpeed) + 'mph</p>').append('<p>Sunlight: ' + (today.sunriseTime < Date.now() && Date.now() < today.sunsetTime ? "Yup" : "Nope") + '</p>');
     };
 
     return ForecastAnalysis;
