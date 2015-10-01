@@ -27,11 +27,11 @@ window.ForecastAnalysis = class ForecastAnalysis
 			result =  true # light doesn't matter so much
 			reason = "You've got lights, you can fly in a cave with no lights!"
 		else
-			result = today.sunriseTime < Date.now() && Date.now() < today.sunsetTime
+			result = today.sunriseTime < (Date.now()/1000) && (Date.now()/1000) < today.sunsetTime
 			if result
 				reason = "You've got sunlight... for now"
 			else
-				reason = "The sun has set and you have no lights"
+				reason = "The sun is down and you have no lights"
 
 		{result: result, reason: reason} #implicit returns are the best
 
@@ -90,8 +90,9 @@ window.ForecastAnalysis = class ForecastAnalysis
 		# generate some data to simplify the output
 		currently = raw_data.currently
 		today = raw_data.daily.data[0]
-		sunlight = today.sunriseTime < Date.now() && Date.now() < today.sunsetTime
-		remaining_sunlight = @milliseconds_to_hours(today.sunsetTime-Date.now())
+		sunlight = today.sunriseTime < (Date.now()/1000) && (Date.now()/1000) < today.sunsetTime
+		remaining_sunlight = @seconds_to_hours(today.sunsetTime-(Date.now()/1000))
+		debugger
 
 		# Output the salient flying details
 		$current_weather
@@ -103,5 +104,5 @@ window.ForecastAnalysis = class ForecastAnalysis
 
 			# .append('<p>Summary: '+data.+'</p>')
 
-	milliseconds_to_hours: (seconds) ->
-		(seconds/1000/60/60).toFixed(2)
+	seconds_to_hours: (seconds) ->
+		(seconds/60/60).toFixed(2)

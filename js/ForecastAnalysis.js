@@ -34,11 +34,11 @@
         result = true;
         reason = "You've got lights, you can fly in a cave with no lights!";
       } else {
-        result = today.sunriseTime < Date.now() && Date.now() < today.sunsetTime;
+        result = today.sunriseTime < (Date.now() / 1000) && (Date.now() / 1000) < today.sunsetTime;
         if (result) {
           reason = "You've got sunlight... for now";
         } else {
-          reason = "The sun has set and you have no lights";
+          reason = "The sun is down and you have no lights";
         }
       }
       return {
@@ -104,13 +104,14 @@
       $current_weather.children().not('legend').remove();
       currently = raw_data.currently;
       today = raw_data.daily.data[0];
-      sunlight = today.sunriseTime < Date.now() && Date.now() < today.sunsetTime;
-      remaining_sunlight = this.milliseconds_to_hours(today.sunsetTime - Date.now());
+      sunlight = today.sunriseTime < (Date.now() / 1000) && (Date.now() / 1000) < today.sunsetTime;
+      remaining_sunlight = this.seconds_to_hours(today.sunsetTime - (Date.now() / 1000));
+      debugger;
       return $current_weather.append('<p>Summary: ' + currently.summary + '</p>').append('<p>Temperature: ' + Math.round(currently.temperature) + 'F</p>').append('<p>Precipitation: %' + (currently.precipProbability * 100) + '</p>').append('<p>Wind Speed: ' + Math.round(currently.windSpeed) + 'mph</p>').append('<p>Sunlight: ' + (sunlight ? "Yup, you've got " + remaining_sunlight + " hours to fly" : "Nope") + '</p>');
     };
 
-    ForecastAnalysis.prototype.milliseconds_to_hours = function(seconds) {
-      return (seconds / 1000 / 60 / 60).toFixed(2);
+    ForecastAnalysis.prototype.seconds_to_hours = function(seconds) {
+      return (seconds / 60 / 60).toFixed(2);
     };
 
     return ForecastAnalysis;
