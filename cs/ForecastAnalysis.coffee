@@ -53,12 +53,19 @@ window.ForecastAnalysis = class ForecastAnalysis
 		currently = raw_data.currently
 		today = raw_data.daily.data[0]
 
+		sunlight = today.sunriseTime < Date.now() && Date.now() < today.sunsetTime
+		remaining_sunlight = @milliseconds_to_hours(today.sunsetTime-Date.now())
+
 		# Salient flying details
 		$current_weather
 			.append('<p>Summary: '+currently.summary+'</p>')
 			.append('<p>Temperature: '+Math.round(currently.temperature)+'F</p>')
 			.append('<p>Precipitation: %'+(currently.precipProbability*100)+'</p>')
 			.append('<p>Wind Speed: '+Math.round(currently.windSpeed)+'mph</p>')
-			.append('<p>Sunlight: '+(if today.sunriseTime < Date.now() && Date.now() < today.sunsetTime then "Yup" else "Nope")+'</p>')
+			.append('<p>Sunlight: '+(if sunlight then "Yup, you've got "+remaining_sunlight+" hours to fly" else "Nope")+'</p>')
 
 			# .append('<p>Summary: '+data.+'</p>')
+
+	milliseconds_to_hours: (seconds) ->
+		(seconds/1000/60/60).toFixed(2)
+

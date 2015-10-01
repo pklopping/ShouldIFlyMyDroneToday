@@ -50,14 +50,20 @@
     };
 
     ForecastAnalysis.prototype.update_interface = function(raw_data, fly_or_no) {
-      var $current_weather, currently, today, wordy_response;
+      var $current_weather, currently, remaining_sunlight, sunlight, today, wordy_response;
       wordy_response = fly_or_no ? "Yes you should! Get out there!" : "No, the weather isn't acting in your favor";
       $(this.short_answer_selector).html(wordy_response);
       $current_weather = $(this.current_weather_selector);
       $current_weather.children().not('legend').remove();
       currently = raw_data.currently;
       today = raw_data.daily.data[0];
-      return $current_weather.append('<p>Summary: ' + currently.summary + '</p>').append('<p>Temperature: ' + Math.round(currently.temperature) + 'F</p>').append('<p>Precipitation: %' + (currently.precipProbability * 100) + '</p>').append('<p>Wind Speed: ' + Math.round(currently.windSpeed) + 'mph</p>').append('<p>Sunlight: ' + (today.sunriseTime < Date.now() && Date.now() < today.sunsetTime ? "Yup" : "Nope") + '</p>');
+      sunlight = today.sunriseTime < Date.now() && Date.now() < today.sunsetTime;
+      remaining_sunlight = this.milliseconds_to_hours(today.sunsetTime - Date.now());
+      return $current_weather.append('<p>Summary: ' + currently.summary + '</p>').append('<p>Temperature: ' + Math.round(currently.temperature) + 'F</p>').append('<p>Precipitation: %' + (currently.precipProbability * 100) + '</p>').append('<p>Wind Speed: ' + Math.round(currently.windSpeed) + 'mph</p>').append('<p>Sunlight: ' + (sunlight ? "Yup, you've got " + remaining_sunlight + " hours to fly" : "Nope") + '</p>');
+    };
+
+    ForecastAnalysis.prototype.milliseconds_to_hours = function(seconds) {
+      return (seconds / 1000 / 60 / 60).toFixed(2);
     };
 
     return ForecastAnalysis;
