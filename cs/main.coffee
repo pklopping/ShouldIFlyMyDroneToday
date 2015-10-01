@@ -16,6 +16,7 @@ $ ->
 			if data
 				waterproof = $('#waterproof').is(':checked')
 				fixed_wing = if $('input[name="aircraft_type"]:checked').val() == "fixed" then true else false
-				window.analysis = new ForecastAnalysis(data, waterproof, fixed_wing)
+				illuminated = $('#illuminated').is(':checked')
+				window.analysis = new ForecastAnalysis(data, waterproof, fixed_wing, illuminated)
 			else
 				alert "You broke it. Why did you do that? Stop it."

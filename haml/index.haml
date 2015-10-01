@@ -34,7 +34,9 @@
 							%input#fixed_wing_aircraft_type{type: "radio", name: "aircraft_type", value: "fixed"}
 							%label{for: "multi_rotor_aircraft_type"}multi-rotor/heli
 							%input#multi_rotor_aircraft_type{type: "radio", name: "aircraft_type", value: "multi", checked: "true"}
-
+							%br
+							%label{for: "illuminated"}Illuminated for night flight
+							%input#illuminated{type: "checkbox", name: "illuminated"}
 						%button#submit{type: "submit", value: "Submit"} Check the weather
 
 		.right-container
