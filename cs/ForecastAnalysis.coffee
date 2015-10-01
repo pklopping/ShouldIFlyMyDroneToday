@@ -33,7 +33,7 @@ window.ForecastAnalysis = class ForecastAnalysis
 			else
 				reason = "The sun has set and you have no lights"
 
-		return {result: result, reason: reason}
+		{result: result, reason: reason} #implicit returns are the best
 
 
 	check_windspeed: (data, fixed_wing) ->
@@ -50,7 +50,7 @@ window.ForecastAnalysis = class ForecastAnalysis
 		else
 			reason = "The wind speeds are too damned high!"
 
-		return {result: result, reason: reason}
+		{result: result, reason: reason}
 
 	check_precipitation: (data, waterproof) ->
 		result = true
@@ -66,7 +66,7 @@ window.ForecastAnalysis = class ForecastAnalysis
 			else
 				reason = "There's a good chance you'll get rained out"
 
-		return {result: result, reason: reason}
+		{result: result, reason: reason}
 
 	update_interface: (raw_data, responses) ->
 
