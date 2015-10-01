@@ -11,52 +11,89 @@ window.ForecastAnalysis = class ForecastAnalysis
 		currently = raw_data.currently # For this version, we'll only be checking the current weather
 		today = raw_data.daily.data[0]
 
-		#The following lines are overkill
-		overall_answer = if @check_precipitation(currently, waterproof) then overall_answer else false 
-		overall_answer = if @check_windspeed(currently, fixed_wing) then overall_answer else false
-		overall_answer = if @check_daylight(today, illuminated) then overall_answer else false
+		responses = []
 
-		@update_interface(raw_data, overall_answer)
+		responses.push @check_precipitation(currently, waterproof)
+		responses.push @check_windspeed(currently, fixed_wing)
+		responses.push @check_daylight(today, illuminated)
+
+		@update_interface(raw_data, responses)
 
 	check_daylight: (today, illuminated) ->
+		result = true
+		reason = ""
+
 		if illuminated
-			return true # light doesn't matter so much
+			result =  true # light doesn't matter so much
+			reason = "You've got lights, you can fly in a cave with no lights!"
 		else
-			return today.sunriseTime < Date.now() && Date.now() < today.sunsetTime
+			result = today.sunriseTime < Date.now() && Date.now() < today.sunsetTime
+			if result
+				reason = "You've got sunlight... for now"
+			else
+				reason = "The sun has set and you have no lights"
+
+		{result: result, reason: reason} #implicit returns are the best
 
 
 	check_windspeed: (data, fixed_wing) ->
+		result = true
+		reason = ""
+
 		if fixed_wing
-			return data.windSpeed < @acceptable_fixed_wing_windspeed
+			result = data.windSpeed < @acceptable_fixed_wing_windspeed
 		else
-			return data.windSpeed < @acceptable_multi_rotor_windspeed
+			result = data.windSpeed < @acceptable_multi_rotor_windspeed
+
+		if result
+			reason = "The winds aren't too fast"
+		else
+			reason = "The wind speeds are too damned high!"
+
+		{result: result, reason: reason}
 
 	check_precipitation: (data, waterproof) ->
+		result = true
+		reason = ""
+
 		if waterproof
-			return true # If it's waterproof, rain won't hurt it
+			result = true # If it's waterproof, rain won't hurt it
+			reason = "Rain ain't no thing for your aircraft!"
 		else
-			return data.precipProbability < @acceptable_precipitation_probability
+			result = data.precipProbability < @acceptable_precipitation_probability
+			if result
+				reason = "The chances of rain are small enough to ignore"
+			else
+				reason = "There's a good chance you'll get rained out"
 
-	update_interface: (raw_data, fly_or_no) ->
+		{result: result, reason: reason}
 
-		# Update the short answer
-		wordy_response = if fly_or_no then "Yes you should! Get out there!" else "No, the weather isn't acting in your favor"
-		$(@short_answer_selector).html(wordy_response)
+	update_interface: (raw_data, responses) ->
 
-		# Update the Curent weather
+		# aggregate the responses
+		aggregate = true
+		text_responses = ""
+		for response in responses
+			response_result = response.result
+			text_responses += "<p class='reason "+response.result+"'>"+response.reason+"</p>"
+			aggregate = if response_result then aggregate else false
+		overall_response = "<p>"+(if aggregate then "Yup! Go fly!" else "You might not want to")+"</p>"
+
+		# Update the answer
+		$(@short_answer_selector).html(overall_response+text_responses)
+
+		# Grab the Curent weather element
 		$current_weather = $(@current_weather_selector)
-
 		#clear existing things
 		$current_weather.children().not('legend').remove()
 
 		# generate some data to simplify the output
 		currently = raw_data.currently
 		today = raw_data.daily.data[0]
-
 		sunlight = today.sunriseTime < Date.now() && Date.now() < today.sunsetTime
 		remaining_sunlight = @milliseconds_to_hours(today.sunsetTime-Date.now())
 
-		# Salient flying details
+		# Output the salient flying details
 		$current_weather
 			.append('<p>Summary: '+currently.summary+'</p>')
 			.append('<p>Temperature: '+Math.round(currently.temperature)+'F</p>')
@@ -68,4 +105,3 @@ window.ForecastAnalysis = class ForecastAnalysis
 
 	milliseconds_to_hours: (seconds) ->
 		(seconds/1000/60/60).toFixed(2)
-

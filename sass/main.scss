@@ -55,7 +55,14 @@ form {
 
 	}
 	.right {
-
+		p.reason {
+			&.true {
+				color: #009000;
+			}
+			&.false {
+				color: #900000;
+			}
+		}
 	}
 }
 .bottom {

@@ -34,6 +34,10 @@ form #submit {
   float: left; }
   .left-container .left, .left-container .right, .right-container .left, .right-container .right {
     padding: 10px; }
+  .left-container .right p.reason.true, .right-container .right p.reason.true {
+    color: #009000; }
+  .left-container .right p.reason.false, .right-container .right p.reason.false {
+    color: #900000; }
 
 .bottom {
   clear: both; }
