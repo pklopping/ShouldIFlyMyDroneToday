@@ -14,45 +14,92 @@
     ForecastAnalysis.prototype.current_weather_selector = 'fieldset.current_weather';
 
     function ForecastAnalysis(raw_data, waterproof, fixed_wing, illuminated) {
-      var currently, overall_answer, today;
+      var currently, overall_answer, responses, today;
       console.log("ForecastAnalysis constructed");
       overall_answer = true;
       currently = raw_data.currently;
       today = raw_data.daily.data[0];
-      overall_answer = this.check_precipitation(currently, waterproof) ? overall_answer : false;
-      overall_answer = this.check_windspeed(currently, fixed_wing) ? overall_answer : false;
-      overall_answer = this.check_daylight(today, illuminated) ? overall_answer : false;
-      this.update_interface(raw_data, overall_answer);
+      responses = [];
+      responses.push(this.check_precipitation(currently, waterproof));
+      responses.push(this.check_windspeed(currently, fixed_wing));
+      responses.push(this.check_daylight(today, illuminated));
+      this.update_interface(raw_data, responses);
     }
 
     ForecastAnalysis.prototype.check_daylight = function(today, illuminated) {
+      var reason, result;
+      result = true;
+      reason = "";
       if (illuminated) {
-        return true;
+        result = true;
+        reason = "You've got lights, you can fly in a cave with no lights!";
       } else {
-        return today.sunriseTime < Date.now() && Date.now() < today.sunsetTime;
+        result = today.sunriseTime < Date.now() && Date.now() < today.sunsetTime;
+        if (result) {
+          reason = "You've got sunlight... for now";
+        } else {
+          reason = "The sun has set and you have no lights";
+        }
       }
+      return {
+        result: result,
+        reason: reason
+      };
     };
 
     ForecastAnalysis.prototype.check_windspeed = function(data, fixed_wing) {
+      var reason, result;
+      result = true;
+      reason = "";
       if (fixed_wing) {
-        return data.windSpeed < this.acceptable_fixed_wing_windspeed;
+        result = data.windSpeed < this.acceptable_fixed_wing_windspeed;
       } else {
-        return data.windSpeed < this.acceptable_multi_rotor_windspeed;
+        result = data.windSpeed < this.acceptable_multi_rotor_windspeed;
       }
+      if (result) {
+        reason = "The winds aren't too fast";
+      } else {
+        reason = "The wind speeds are too damned high!";
+      }
+      return {
+        result: result,
+        reason: reason
+      };
     };
 
     ForecastAnalysis.prototype.check_precipitation = function(data, waterproof) {
+      var reason, result;
+      result = true;
+      reason = "";
       if (waterproof) {
-        return true;
+        result = true;
+        reason = "Rain ain't no thing for your aircraft!";
       } else {
-        return data.precipProbability < this.acceptable_precipitation_probability;
+        result = data.precipProbability < this.acceptable_precipitation_probability;
+        if (result) {
+          reason = "The chances of rain are small enough to ignore";
+        } else {
+          reason = "There's a good chance you'll get rained out";
+        }
       }
+      return {
+        result: result,
+        reason: reason
+      };
     };
 
-    ForecastAnalysis.prototype.update_interface = function(raw_data, fly_or_no) {
-      var $current_weather, currently, remaining_sunlight, sunlight, today, wordy_response;
-      wordy_response = fly_or_no ? "Yes you should! Get out there!" : "No, the weather isn't acting in your favor";
-      $(this.short_answer_selector).html(wordy_response);
+    ForecastAnalysis.prototype.update_interface = function(raw_data, responses) {
+      var $current_weather, aggregate, currently, i, len, overall_response, remaining_sunlight, response, response_result, sunlight, text_responses, today;
+      aggregate = true;
+      text_responses = "";
+      for (i = 0, len = responses.length; i < len; i++) {
+        response = responses[i];
+        response_result = response.result;
+        text_responses += "<p class='reason " + response.result + "'>" + response.reason + "</p>";
+        aggregate = response_result ? aggregate : false;
+      }
+      overall_response = "<p>" + (aggregate ? "Yup! Go fly!" : "You might not want to") + "</p>";
+      $(this.short_answer_selector).html(overall_response + text_responses);
       $current_weather = $(this.current_weather_selector);
       $current_weather.children().not('legend').remove();
       currently = raw_data.currently;
