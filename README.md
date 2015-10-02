@@ -23,6 +23,7 @@ Should I pursue this app I might have it incorporate the following features in t
 * Add geolocation so that users can look up the weather by address or by their current location
 * Have the app propose the best time of day to fly
 * For waterproof aircraft, factor in precipitation intensity 
+* Let the user configure acceptable wind speeds, precipitation intensities, and precipitation chances
 * Return a probabilistic answers like: "Get out there!", "Probably", "Maybe", "Probably Not", "Only if you want to destroy your aircraft"
 * Add in a feature to warn the user if they're near an airports no-fly zone
 * Make the mobile experience better
