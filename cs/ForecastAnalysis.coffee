@@ -46,9 +46,9 @@ window.ForecastAnalysis = class ForecastAnalysis
 			result = data.windSpeed < @acceptable_multi_rotor_windspeed
 
 		if result
-			reason = "The winds aren't too fast"
+			reason = "The wind isn't too fast"
 		else
-			reason = "The wind speeds are too damned high!"
+			reason = "The wind speed is too damned high!"
 
 		{result: result, reason: reason}
 
@@ -62,7 +62,7 @@ window.ForecastAnalysis = class ForecastAnalysis
 		else
 			result = data.precipProbability < @acceptable_precipitation_probability
 			if result
-				reason = "The chances of rain are small enough to ignore"
+				reason = "The chance of rain is small enough to ignore"
 			else
 				reason = "There's a good chance you'll get rained out"
 
