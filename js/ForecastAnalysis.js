@@ -106,7 +106,6 @@
       today = raw_data.daily.data[0];
       sunlight = today.sunriseTime < (Date.now() / 1000) && (Date.now() / 1000) < today.sunsetTime;
       remaining_sunlight = this.seconds_to_hours(today.sunsetTime - (Date.now() / 1000));
-      debugger;
       return $current_weather.append('<p>Summary: ' + currently.summary + '</p>').append('<p>Temperature: ' + Math.round(currently.temperature) + 'F</p>').append('<p>Precipitation: %' + (currently.precipProbability * 100) + '</p>').append('<p>Wind Speed: ' + Math.round(currently.windSpeed) + 'mph</p>').append('<p>Sunlight: ' + (sunlight ? "Yup, you've got " + remaining_sunlight + " hours to fly" : "Nope") + '</p>');
     };
 

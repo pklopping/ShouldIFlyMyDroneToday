@@ -40,6 +40,11 @@ fieldset {
 form {
 	#submit {
 		@include better_border();
+		&:disabled {
+			color: #AAA;
+			border-color: #AAA;
+			background-color: #444;
+		}
 	}
 }
 .indent {

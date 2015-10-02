@@ -25,6 +25,10 @@ fieldset {
 form #submit {
   border-radius: 5px;
   border: 2px solid #ddd; }
+  form #submit:disabled {
+    color: #AAA;
+    border-color: #AAA;
+    background-color: #444; }
 
 .indent {
   margin-left: 10px; }

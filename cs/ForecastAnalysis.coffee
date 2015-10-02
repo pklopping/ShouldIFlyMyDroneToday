@@ -92,7 +92,6 @@ window.ForecastAnalysis = class ForecastAnalysis
 		today = raw_data.daily.data[0]
 		sunlight = today.sunriseTime < (Date.now()/1000) && (Date.now()/1000) < today.sunsetTime
 		remaining_sunlight = @seconds_to_hours(today.sunsetTime-(Date.now()/1000))
-		debugger
 
 		# Output the salient flying details
 		$current_weather
